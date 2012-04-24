@@ -1,0 +1,28 @@
+{
+    "name": "phantom-sync"
+  , "version": "0.0.1"
+  , "description": "sync version of node-phantom"
+  , "keywords": ["phantom", "phantomjs", "sync", "synchronous"]
+  , "author": "Seb Vincent <seb.vincent@gmail.com>"
+  , "repository": { "type": "git", "url": "git@github.com:sebv/node-phantomjs-sync.git" }
+  , "main": "./index"
+  , "engine": "node >= 0.6.1"
+  , "scripts": {
+    "test": "cake test"
+  }
+  , "dependencies": {
+    "phantom": "latest"
+    ,"node-make-sync" : "latest"
+  }
+  , "devDependencies" : {
+      "coffee-script" : "latest"
+    , "mocha" : "latest"
+    , "should": "latest"
+    , "vows": "latest"
+    , "assert": "latest"
+    , "ps-tree": "latest"
+    , "express": "latest"
+    , "temp": "latest"
+    , "underscore": "latest"
+  }
+}

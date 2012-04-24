@@ -1,0 +1,84 @@
+# phantomjs-node-sync
+
+This is a synchronous version of [phantomjs-node](http://github.com/sgentle/phantomjs-node) 
+using [node-fibers](http://github.com/laverdet/node-fibers). There are different modes
+available, allowing the [PhantomJS](http://www.phantomjs.org/) API to be used synchronously, 
+asynchronously, or a mix of both.
+
+## install
+```
+npm install phantom-sync
+```
+
+
+## simple usage (coffeescript)
+```coffeescript
+{Phantom,Sync} = (require 'phantom-sync')
+
+phantom = new Phantom 
+
+Sync ->
+  ph = phantom.create()
+  page = ph.createPage()
+  status = page.open "http://www.google.com"
+  console.log "status=", status  
+  title = page.evaluate ->
+    document.title
+  console.log "title=", title
+  ph.exit()  
+```
+## modes
+Please refer to [node-make-sync](http://github.com/sebv/node-make-sync) for
+detailed mode description.
+
+```coffeescript
+# sync (default)
+phantom = new Phantom   
+phantom = new Phantom mode:'sync'   
+# async
+phantom = new Phantom mode:'async'   
+# mixed-args (mixed default)
+phantom = new Phantom mode:'mixed'
+phantom = new Phantom mode:['mixed','args']
+# mixed-fibers
+phantom = new Phantom mode:['mixed','fibers']
+```
+
+# mixed mode example (coffeescript)
+```coffeescript
+{Phantom,Sync} = (require 'phantom-sync')
+
+phantom = new Phantom {mode:'mixed'} 
+
+[page,ph] = [] 
+Sync ->
+  console.log "Step 1"    
+  ph = phantom.create()
+  page = ph.createPage()
+  status = page.open "http://www.google.com"
+  console.log "status=", status  
+  title = page.evaluate ->
+    document.title
+  console.log "title=", title
+
+# reusing the previous objects
+setTimeout ->
+  console.log "Step 2"  
+  page.open "http://www.yahoo.com", (status) ->  
+    console.log "status=", status  
+    page.evaluate (-> document.title), (title) -> 
+      console.log "title=", title
+      ph.exit()
+  # creating a new set of object
+  setTimeout ->
+    console.log "Step 3"  
+    phantom.create (ph2) ->
+      ph2.createPage (page2) ->
+        page2.open "http://www.apple.com", (status) ->  
+          console.log "status=", status  
+          page2.evaluate (-> document.title), (title) -> 
+            console.log "title=", title
+            ph2.exit()
+  , 5000  
+, 5000    
+```
