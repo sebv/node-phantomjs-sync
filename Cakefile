@@ -37,10 +37,10 @@ task 'kill:all:phantom', 'Kill all phantom process', ->
   killAllPhantom()
 
 compileAll = (watch = false) ->
-  compileCoffee ['lib','test','workdir'], ['index.coffee'], watch
+  compileCoffee ['lib','test'], ['index.coffee'], watch
 
 cleanAllJs =  ->
-  cleanJs ['lib','test','workdir'], ['index.js']
+  cleanJs ['lib','test'], ['index.js']
 
 compileCoffee = (dirs , files , watch = false) ->    
   params = ['--compile']
@@ -81,7 +81,6 @@ grepDirty = (dirs , word) ->
   execFile 'find', [ '.' ] , (err, stdout, stderr) ->
     files = (stdout.split '\n')\
       .filter( (name) -> not name.match /\/node_modules\//)\
-      .filter( (name) -> not name.match /\/workdir\//)\
       .filter( (name) -> not name.match /\/\.git\//)\
       .filter( (name) -> 
         ( name.match /\.js$/) or 
