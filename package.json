@@ -19,7 +19,6 @@
     , "mocha" : "latest"
     , "should": "latest"
     , "vows": "latest"
-    , "assert": "latest"
     , "ps-tree": "latest"
     , "express": "latest"
     , "temp": "latest"
