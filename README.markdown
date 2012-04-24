@@ -12,6 +12,9 @@ asynchronously, or a mix of both.
 npm install phantom-sync
 ```
 
+## read [this](https://github.com/sgentle/phantomjs-node/blob/master/README.markdown) first
+
+really!
 
 ## simple usage (coffeescript)
 
@@ -31,6 +34,27 @@ Sync ->
   ph.exit()  
 ```
 
+## API
+
+### async API
+
+Same as [phantom for node](http://github.com/sgentle/phantomjs-node) 
+
+When using the ['mixed','args'] mode, make sure that a 'done' callback is passed to methods 
+like 'onConsoleMessage' or 'evaluate', otherwise function arguments may be confused with the
+'done' callback. There is more information about this kind of issues in the 
+[make-sync](http://github.com/sebv/node-make-sync) doc.
+
+### sync API
+
+This is the [phantom for node](http://github.com/sgentle/phantomjs-node) API where that callbacks have been transformed into returns. 
+Therefore it should be very similar to the [PhantomJS API](http://code.google.com/p/phantomjs/wiki/Interface), 
+except for the getters/setters function which need to be called like in the following code:
+
+```coffeescript
+p.page.set 'settings.loadImages', false
+p.page.get 'settings.loadImages'
+```
 
 ## modes
 
