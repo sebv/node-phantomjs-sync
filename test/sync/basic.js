@@ -6,7 +6,7 @@
 
   exec = require('child_process').exec;
 
-  MakeSync = require('node-make-sync').MakeSync;
+  MakeSync = require('make-sync').MakeSync;
 
   _ref = require('../../lib/phantom-sync'), Phantom = _ref.Phantom, Sync = _ref.Sync;
 

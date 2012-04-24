@@ -1,6 +1,6 @@
 should = require 'should'
 {exec} = require 'child_process'
-{MakeSync} = require 'node-make-sync'
+{MakeSync} = require 'make-sync'
 {Phantom, Sync} = require '../../lib/phantom-sync'
 
 test = (options) ->

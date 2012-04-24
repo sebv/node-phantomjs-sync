@@ -1,4 +1,4 @@
-{Sync, MakeSync} = require('node-make-sync')
+{Sync, MakeSync} = require('make-sync')
 phantom = require 'phantom'
 
 buildObjectOptions = (options) ->

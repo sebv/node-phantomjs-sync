@@ -12,7 +12,7 @@
   }
   , "dependencies": {
     "phantom": "latest"
-    ,"node-make-sync" : "latest"
+    ,"make-sync" : "latest"
   }
   , "devDependencies" : {
       "coffee-script" : "latest"
