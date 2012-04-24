@@ -120,8 +120,8 @@ bat = (options) ->
             test = this
             if _.isEqual options.mode,['mixed', 'args']
               # need to pass a callback in this mode
-              page.set 'onConsoleMessage', ((msg) -> test.callback null, msg), undefined
-              page.evaluate (-> console.log "Hello, world!"), undefined
+              page.set 'onConsoleMessage', ((msg) -> test.callback null, msg), ->
+              page.evaluate (-> console.log "Hello, world!"), ->
             else
               page.set 'onConsoleMessage', ((msg) -> test.callback null, msg)
               page.evaluate (-> console.log "Hello, world!")
