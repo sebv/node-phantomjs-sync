@@ -40,10 +40,9 @@ Sync ->
 
 Same as [phantom for node](http://github.com/sgentle/phantomjs-node) 
 
-When using the ['mixed','args'] mode, make sure that a 'done' callback is passed to methods 
-like 'onConsoleMessage' or 'evaluate', otherwise function arguments may be confused with the
-'done' callback. There is more information about this kind of issues in the 
-[make-sync](http://github.com/sebv/node-make-sync) doc.
+When using the ['mixed','args'] mode, make sure that a 'done' callback or 'undefined' is passed to methods 
+like 'onConsoleMessage' or 'evaluate', even when not expecting return values, otherwises the methods will
+be called synchronously.
 
 ### sync API
 
