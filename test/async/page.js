@@ -159,10 +159,10 @@
                 if (_.isEqual(options.mode, ['mixed', 'args'])) {
                   page.set('onConsoleMessage', (function(msg) {
                     return test.callback(null, msg);
-                  }), function() {});
+                  }), void 0);
                   return page.evaluate((function() {
                     return console.log("Hello, world!");
-                  }), function() {});
+                  }), void 0);
                 } else {
                   page.set('onConsoleMessage', (function(msg) {
                     return test.callback(null, msg);
