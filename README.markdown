@@ -57,7 +57,7 @@ p.page.get 'settings.loadImages'
 
 ## modes
 
-Please refer to [make-sync](http://github.com/sebv/node-make-sync) for
+Please refer to [make-sync](http://github.com/sebv/node-make-sync/blob/master/README.markdown#modes) for
 detailed mode descriptions.
 
 ```coffeescript
