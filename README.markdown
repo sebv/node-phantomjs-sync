@@ -12,10 +12,6 @@ asynchronously, or a mix of both.
 npm install phantom-sync
 ```
 
-## read [this](https://github.com/sgentle/phantomjs-node/blob/master/README.markdown) first
-
-really!
-
 ## simple usage (coffeescript)
 
 ```coffeescript
