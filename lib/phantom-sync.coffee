@@ -5,11 +5,13 @@ buildObjectOptions = (options) ->
   ph:
     mode: options.mode
     exclude: [/^_/, 'exit']
+    error_type: 'none'
     num_of_args:
       set: 2
   page:
     mode: options.mode
     exclude: [/^_/, 'sendEvent']
+    error_type: 'none'
     num_of_args:
       evaluate: 1
       set: 2
@@ -29,7 +31,7 @@ createReplacement = (options) ->
             done page
         MakeSync ph, objectOptions.ph
         done(ph)
-    , options
+    , {mode: options.mode, error_type: 'none'}
 
 class Phantom
   constructor: (options) ->
