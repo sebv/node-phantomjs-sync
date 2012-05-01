@@ -65,8 +65,7 @@ describe "phantom-sync", \
 -> describe "sync", \
 -> describe "basics", ->
 
-  #for mode in [undefined,'sync',['mixed','args'],['mixed','fibers']]
-  for mode in ['sync']
+  for mode in [undefined,'sync',['mixed','args'],['mixed','fibers']]
     describe "#{mode} mode", ->  
       test mode:mode
   

@@ -103,7 +103,7 @@
     return describe("sync", function() {
       return describe("basics", function() {
         var mode, _i, _len, _ref1, _results;
-        _ref1 = ['sync'];
+        _ref1 = [void 0, 'sync', ['mixed', 'args'], ['mixed', 'fibers']];
         _results = [];
         for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
           mode = _ref1[_i];
