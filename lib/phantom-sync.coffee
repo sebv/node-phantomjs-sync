@@ -2,16 +2,19 @@
 phantom = require 'phantom'
 
 buildObjectOptions = (options) ->
+  create:
+    mode: options.mode
+    'sync-return': 'res'
   ph:
     mode: options.mode
     exclude: [/^_/, 'exit']
-    error_type: 'none'
+    'sync-return': 'res'
     num_of_args:
       set: 2
   page:
     mode: options.mode
     exclude: [/^_/, 'sendEvent']
-    error_type: 'none'
+    'sync-return': 'res'
     num_of_args:
       evaluate: 1
       set: 2
@@ -19,19 +22,18 @@ buildObjectOptions = (options) ->
 # Builds replacement for the phantom.create method
 createReplacement = (options) ->                    
   objectOptions = buildObjectOptions options
-  MakeSync \
-    (args..., done) ->
-      # disassembling and rebuilding child object structure
-      # with sync version of objects 
-      phantom.create args..., (ph) ->
-        _createPage = ph.createPage
-        ph.createPage = (args..., done) ->
-          _createPage args..., (page) ->
-            MakeSync page, objectOptions.page
-            done page
-        MakeSync ph, objectOptions.ph
-        done(ph)
-    , {mode: options.mode, error_type: 'none'}
+  replacement = (args..., done) ->
+    # disassembling and rebuilding child object structure
+    # with sync version of objects 
+    phantom.create args..., (ph) ->
+      _createPage = ph.createPage
+      ph.createPage = (args..., done) ->
+        _createPage args..., (page) ->
+          MakeSync page, objectOptions.page
+          done page
+      MakeSync ph, objectOptions.ph
+      done(ph)
+  MakeSync replacement,  objectOptions.create
 
 class Phantom
   constructor: (options) ->

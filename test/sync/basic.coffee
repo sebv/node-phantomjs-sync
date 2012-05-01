@@ -49,7 +49,7 @@ test = (options) ->
       exec 'ps -Ao ppid,pid' , (err, stdout, stderr) ->
         count = ('' for line in (stdout.split '\n') \
           when line.trim().match(///^#{ppid}\s+\d+///)).length
-        done (count > 1) 
+        done null, (count > 1) 
         
     it "should work", (done) ->
       Sync ->
@@ -65,7 +65,8 @@ describe "phantom-sync", \
 -> describe "sync", \
 -> describe "basics", ->
 
-  for mode in [undefined,'sync',['mixed','args'],['mixed','fibers']]
+  #for mode in [undefined,'sync',['mixed','args'],['mixed','fibers']]
+  for mode in ['sync']
     describe "#{mode} mode", ->  
       test mode:mode
   

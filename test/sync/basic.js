@@ -81,7 +81,7 @@
             }
             return _results;
           })()).length;
-          return done(count > 1);
+          return done(null, count > 1);
         });
       });
       return it("should work", function(done) {
@@ -103,7 +103,7 @@
     return describe("sync", function() {
       return describe("basics", function() {
         var mode, _i, _len, _ref1, _results;
-        _ref1 = [void 0, 'sync', ['mixed', 'args'], ['mixed', 'fibers']];
+        _ref1 = ['sync'];
         _results = [];
         for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
           mode = _ref1[_i];
