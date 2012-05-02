@@ -15,11 +15,9 @@
     ,"make-sync" : "latest"
   }
   , "devDependencies" : {
-      "coffee-script" : "latest"
-    , "sv-cake-utils" : "latest"
-    , "mocha" : "latest"
-    , "should": "latest"
+    "sv-cake-utils" : "latest"
     , "vows": "latest"
+    , "should": "latest"
     , "ps-tree": "latest"
     , "express": "latest"
     , "temp": "latest"
