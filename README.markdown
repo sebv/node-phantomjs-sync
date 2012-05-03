@@ -37,7 +37,7 @@ Sync ->
 Same as [phantom for node](http://github.com/sgentle/phantomjs-node) 
 
 When using the ['mixed','args'] mode, make sure that a 'done' callback is passed to methods 
-like 'onConsoleMessage' or 'evaluate', even when not expecting return values, otherwises the 
+like 'onConsoleMessage' or 'evaluate', even when not expecting return values, otherwise the 
 methods will be called synchronously.
 
 ### sync API
