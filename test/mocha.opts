@@ -2,5 +2,5 @@
 --require ./test/testing-env
 --ui bdd
 --reporter spec
--t 5000
+-t 20000
 --bail
