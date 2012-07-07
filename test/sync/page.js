@@ -134,7 +134,7 @@
             suffix: '.png'
           });
           page.render(fileName);
-          path.existsSync(fileName).should.be.ok;
+          fs.existsSync(fileName).should.be.ok;
           fs.unlink(fileName);
           return done();
         });
