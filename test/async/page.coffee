@@ -150,7 +150,7 @@ bat = (options) ->
             page.render fileName, -> test.callback null, fileName
 
           "which is created": (fileName) ->
-            assert.ok path.existsSync(fileName), "rendered image should exist"
+            assert.ok fs.existsSync(fileName), "rendered image should exist"
           
           teardown: (fileName) ->
             fs.unlink fileName

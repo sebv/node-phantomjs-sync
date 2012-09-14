@@ -111,7 +111,7 @@ test = (options) ->
       Sync ->      
         fileName = temp.path suffix: '.png'
         page.render fileName
-        path.existsSync(fileName).should.be.ok
+        fs.existsSync(fileName).should.be.ok
         fs.unlink fileName
         done()
 

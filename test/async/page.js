@@ -214,7 +214,7 @@
                 });
               }),
               "which is created": function(fileName) {
-                return assert.ok(path.existsSync(fileName), "rendered image should exist");
+                return assert.ok(fs.existsSync(fileName), "rendered image should exist");
               },
               teardown: function(fileName) {
                 return fs.unlink(fileName);
