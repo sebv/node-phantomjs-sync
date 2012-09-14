@@ -1,5 +1,6 @@
 {Sync, MakeSync} = require('make-sync')
 phantom = require 'phantom'
+_ = require 'underscore'
 
 buildObjectOptions = (options) ->
   create:
@@ -16,7 +17,6 @@ buildObjectOptions = (options) ->
     exclude: [/^_/, 'sendEvent']
     'sync-return': 'res'
     num_of_args:
-      evaluate: 1
       set: 2
   
 # Builds replacement for the phantom.create method
@@ -29,7 +29,22 @@ createReplacement = (options) ->
       _createPage = ph.createPage
       ph.createPage = (args..., done) ->
         _createPage args..., (page) ->
+          _evaluate = page.evaluate
+          _evaluateSync = MakeSync _evaluate , 
+              mode:'sync', 
+              'sync-return': 'res'          
           MakeSync page, objectOptions.page
+          if _.isEqual options.mode, ['mixed','args']          
+            page.evaluate = (args...) ->
+              [f,fargs...,cb] = args              
+              if (typeof cb) isnt 'function'
+                fargs.push cb
+                cb = null
+              
+              unless (typeof cb) is 'function'
+                return _evaluateSync.apply page, args
+              else
+                return _evaluate.apply page, args
           done page
       MakeSync ph, objectOptions.ph
       done(ph)
