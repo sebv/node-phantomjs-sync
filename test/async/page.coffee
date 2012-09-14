@@ -95,6 +95,20 @@ bat = (options) ->
           "which return the correct result": (html) ->
             html = html.replace(/\s\s+/g, "")
             assert.equal html, '<div class="anotherdiv">Some page content</div>'
+
+        "can evaluate a script with one param":
+          topic: t (page) ->
+            page.evaluate ( (p1) -> "res:#{p1}"), "p12345",  (res) => @callback null, res              
+          
+          "which return the correct result": (res) ->
+            assert.equal res, 'res:p12345'
+
+        "can evaluate a script with two params":
+          topic: t (page) ->
+            page.evaluate ( (p1, p2) -> "res:#{p1} #{p2}"), "p12345", 678, (res) => @callback null, res              
+          
+          "which return the correct result": (res) ->
+            assert.equal res, 'res:p12345 678'
         
         "can set a nested property":
           topic: t (page) ->

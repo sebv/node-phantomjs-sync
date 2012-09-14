@@ -73,6 +73,18 @@ test = (options) ->
         html.should.equal '<div class="anotherdiv">Some page content</div>'
         done()
 
+    it "script taking one parameter", (done) ->
+      Sync ->
+        res = page.evaluate ( (p1) -> "res:#{p1}" ), 'p12345'
+        res.should.equal "res:p12345"
+        done()
+
+    it "script taking two parameters", (done) ->
+      Sync ->
+        res = page.evaluate ( (p1, p2) -> "res:#{p1} #{p2}" ), 'p12345', 678
+        res.should.equal "res:p12345 678"
+        done()
+
     it "setting a nested property", (done) ->
       Sync ->
         oldVal = page.set 'settings.loadPlugins', true

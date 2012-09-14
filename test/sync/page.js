@@ -93,6 +93,26 @@
           return done();
         });
       });
+      it("script taking one parameter", function(done) {
+        return Sync(function() {
+          var res;
+          res = page.evaluate((function(p1) {
+            return "res:" + p1;
+          }), 'p12345');
+          res.should.equal("res:p12345");
+          return done();
+        });
+      });
+      it("script taking two parameters", function(done) {
+        return Sync(function() {
+          var res;
+          res = page.evaluate((function(p1, p2) {
+            return "res:" + p1 + " " + p2;
+          }), 'p12345', 678);
+          res.should.equal("res:p12345 678");
+          return done();
+        });
+      });
       it("setting a nested property", function(done) {
         return Sync(function() {
           var oldVal, val;

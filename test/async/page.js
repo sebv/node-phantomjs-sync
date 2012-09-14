@@ -119,6 +119,32 @@
                 return assert.equal(html, '<div class="anotherdiv">Some page content</div>');
               }
             },
+            "can evaluate a script with one param": {
+              topic: t(function(page) {
+                var _this = this;
+                return page.evaluate((function(p1) {
+                  return "res:" + p1;
+                }), "p12345", function(res) {
+                  return _this.callback(null, res);
+                });
+              }),
+              "which return the correct result": function(res) {
+                return assert.equal(res, 'res:p12345');
+              }
+            },
+            "can evaluate a script with two params": {
+              topic: t(function(page) {
+                var _this = this;
+                return page.evaluate((function(p1, p2) {
+                  return "res:" + p1 + " " + p2;
+                }), "p12345", 678, function(res) {
+                  return _this.callback(null, res);
+                });
+              }),
+              "which return the correct result": function(res) {
+                return assert.equal(res, 'res:p12345 678');
+              }
+            },
             "can set a nested property": {
               topic: t(function(page) {
                 var _this = this;
