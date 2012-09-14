@@ -1,6 +1,6 @@
 {
     "name": "phantom-sync"
-  , "version": "0.1.1"
+  , "version": "0.1.2"
   , "description": "sync version of phantom"
   , "keywords": ["phantom", "phantomjs", "sync", "synchronous"]
   , "author": "Seb Vincent <seb.vincent@gmail.com>"
