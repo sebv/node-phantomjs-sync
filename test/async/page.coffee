@@ -21,7 +21,7 @@ t = (fn) ->
 
 bat = (options) ->
 
-  app = express.createServer()
+  app = express()
 
   app.get '/', (req, res) ->
     res.send """
@@ -39,7 +39,7 @@ bat = (options) ->
       </html>
     """
 
-  app.listen()
+  server = app.listen()
 
   phantom = new Phantom options
 
@@ -52,7 +52,7 @@ bat = (options) ->
 
     "can open a URL on localhost":
       topic: t (page) ->
-        page.open "http://127.0.0.1:#{app.address().port}/", (status) =>
+        page.open "http://127.0.0.1:#{server.address().port}/", (status) =>
           @callback null, page, status
 
       "and succeed": (err, page, status) ->
@@ -156,7 +156,7 @@ bat = (options) ->
             fs.unlink fileName
     
     teardown: (page, ph) ->
-      app.close()
+      server .close()
       ph.exit()
 
 for mode in ['async',['mixed','args'],['mixed','fibers']]

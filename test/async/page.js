@@ -32,12 +32,12 @@
   };
 
   bat = function(options) {
-    var app, phantom;
-    app = express.createServer();
+    var app, phantom, server;
+    app = express();
     app.get('/', function(req, res) {
       return res.send("<html>\n  <head>\n    <title>Test page title</title>\n    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js\"></script>\n  </head>\n  <body>\n    <div id=\"somediv\">\n      <div class=\"anotherdiv\">Some page content</div>\n    </div>\n    <button class=\"clickme\" style=\"position: absolute; top: 123px; left: 123px; width: 20px; height; 20px\" onclick=\"window.i_got_clicked = true;\" />\n  </body>\n</html>");
     });
-    app.listen();
+    server = app.listen();
     phantom = new Phantom(options);
     return {
       "A Phantom page": {
@@ -53,7 +53,7 @@
         "can open a URL on localhost": {
           topic: t(function(page) {
             var _this = this;
-            return page.open("http://127.0.0.1:" + (app.address().port) + "/", function(status) {
+            return page.open("http://127.0.0.1:" + (server.address().port) + "/", function(status) {
               return _this.callback(null, page, status);
             });
           }),
@@ -223,7 +223,7 @@
           }
         },
         teardown: function(page, ph) {
-          app.close();
+          server.close();
           return ph.exit();
         }
       }

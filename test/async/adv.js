@@ -24,13 +24,13 @@
   };
 
   bat = function(options) {
-    var app, phantom;
-    app = express.createServer();
+    var app, phantom, server;
+    app = express();
     app.use(express["static"](__dirname));
     app.get('/', function(req, res) {
       return res.send("<html>\n  <head>\n    <title>Test page title</title>\n  </head>\n  <body>\n    <img src=\"/test.gif\" />\n  </body>\n</html>");
     });
-    app.listen();
+    server = app.listen();
     phantom = new Phantom(options);
     return {
       "Can create an instance with --load-images=no": {
@@ -46,7 +46,7 @@
             test = this;
             return p.createPage(function(page) {
               var _this = this;
-              return page.open("http://127.0.0.1:" + (app.address().port) + "/", function(status) {
+              return page.open("http://127.0.0.1:" + (server.address().port) + "/", function(status) {
                 return setTimeout(function() {
                   return test.callback(null, page, status);
                 }, 1500);
@@ -83,7 +83,7 @@
           }
         },
         teardown: function(p) {
-          app.close();
+          server.close();
           return p.exit();
         }
       }

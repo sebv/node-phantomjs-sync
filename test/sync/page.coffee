@@ -7,10 +7,10 @@ path    = require 'path'
 fs      = require 'fs'
 
 test = (options) ->  
-  {app, phantom,p, page} = []    
+  {app, server, phantom,p, page} = []    
   
   before (done) ->    
-    app = express.createServer()
+    app = express()
     app.get '/', (req, res) ->
       res.send """
         <html>
@@ -26,13 +26,13 @@ test = (options) ->
           </body>
         </html>
       """
-    app.listen()
+    server = app.listen()
     phantom = new Phantom options    
     done()
 
   after (done)->
     p?.exit()
-    app?.close() 
+    server?.close() 
     done()
 
   describe "opening page", ->
@@ -44,7 +44,7 @@ test = (options) ->
 
     it "visiting", (done) ->
       Sync ->
-        status = page.open "http://127.0.0.1:#{app.address().port}/"
+        status = page.open "http://127.0.0.1:#{server.address().port}/"
         status.should.be.ok
         done()
 

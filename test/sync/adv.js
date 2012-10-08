@@ -9,15 +9,15 @@
   _ref = require('../../lib/phantom-sync'), Phantom = _ref.Phantom, Sync = _ref.Sync;
 
   test = function(options) {
-    var app, p, page, phantom, _ref1;
-    _ref1 = [], app = _ref1.app, phantom = _ref1.phantom, p = _ref1.p, page = _ref1.page;
+    var app, p, page, phantom, server, _ref1;
+    _ref1 = [], app = _ref1.app, server = _ref1.server, phantom = _ref1.phantom, p = _ref1.p, page = _ref1.page;
     before(function(done) {
-      app = express.createServer();
+      app = express();
       app.use(express["static"](__dirname));
       app.get('/', function(req, res) {
         return res.send("<html>\n  <head>\n    <title>Test page title</title>\n  </head>\n  <body>\n    <img src=\"/test.gif\" />\n  </body>\n</html>");
       });
-      app.listen();
+      server = app.listen();
       phantom = new Phantom(options);
       return done();
     });
@@ -25,8 +25,8 @@
       if (p != null) {
         p.exit();
       }
-      if (app != null) {
-        app.close();
+      if (server != null) {
+        server.close();
       }
       return done();
     });
@@ -36,7 +36,7 @@
           var status;
           p = phantom.create('--load-images=no');
           page = p.createPage();
-          status = page.open("http://127.0.0.1:" + (app.address().port) + "/");
+          status = page.open("http://127.0.0.1:" + (server.address().port) + "/");
           status.should.be.ok;
           return done();
         });

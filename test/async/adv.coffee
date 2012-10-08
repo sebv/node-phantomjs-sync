@@ -17,7 +17,7 @@ t = (fn) ->
 
 bat = (options) ->
 
-  app = express.createServer()
+  app = express()
   app.use express.static __dirname
 
   app.get '/', (req, res) ->
@@ -32,7 +32,7 @@ bat = (options) ->
       </html>
     """
 
-  app.listen()
+  server = app.listen()
 
   phantom = new Phantom options
 
@@ -45,7 +45,7 @@ bat = (options) ->
       topic: t (p) ->
         test = this
         p.createPage (page) ->
-          page.open "http://127.0.0.1:#{app.address().port}/", (status) =>
+          page.open "http://127.0.0.1:#{server.address().port}/", (status) =>
             setTimeout =>
               test.callback null, page, status
             , 1500
@@ -71,7 +71,7 @@ bat = (options) ->
 
     
     teardown: (p) ->
-      app.close()
+      server.close()
       p.exit()
   
 for mode in ['async',['mixed','args'],['mixed','fibers']]
