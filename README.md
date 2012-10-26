@@ -1,6 +1,6 @@
 # phantomjs-node-sync
 
-Note: API change in version 1.0.0, see section below
+Note: API change in version 1.0.0, see section below.
 
 This is a synchronous version of the [phantom for node](http://github.com/sgentle/phantomjs-node) 
 module using [fibers](http://github.com/laverdet/node-fibers). 
@@ -19,7 +19,7 @@ The main changes are the following:
 - 2/ require should be: `{phantom,sync} = require 'phantom-sync'`
 - 3/ no need to create a Phantom object
 
-## simple usage (coffeescript)
+## usage (coffeescript)
 
 ```coffeescript
 {phantom,sync} = require 'phantom-sync'
