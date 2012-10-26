@@ -13,8 +13,8 @@ task 'compile:watch', 'Compile All coffee files and watch for changes', ->
 task 'clean', 'Remove all js files', ->
   u.js.clean JS_PATHS 
   
-task 'test', 'Run all async tests (using vows)', ->
-  u.mocha.test 'test/sync' 
+task 'test', 'Run tests', ->
+  u.mocha.test 'test' 
 
 task 'grep:dirty', 'Lookup for debugger and console.log in code', ->
   u.grep.debug()
