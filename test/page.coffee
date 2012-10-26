@@ -1,13 +1,15 @@
 should = require 'should'
 # {exec} = require 'child_process'
-{Phantom, Sync} = require '../../lib/phantom-sync'
+{phantom,sync} = require '../lib/phantom-sync'
 express = require 'express'
 temp    = require 'temp'
 path    = require 'path'
 fs      = require 'fs'
 
-test = (options) ->  
-  {app, server, phantom,p, page} = []    
+describe "phantom-sync", -> \
+describe "sync", -> \
+describe "page", ->
+  {app, server, ph, page} = {}    
   
   before (done) ->    
     app = express()
@@ -27,80 +29,80 @@ test = (options) ->
         </html>
       """
     server = app.listen()
-    phantom = new Phantom options    
     done()
 
   after (done)->
-    p?.exit()
+    ph.exit() if ph?
+    sync ->
     server?.close() 
     done()
 
   describe "opening page", ->
     it "creating", (done) ->
-      Sync ->
-        p = phantom.create()
-        page = p.createPage()
+      sync ->
+        ph = phantom.create()
+        page = ph.createPage()
         done()
-
+    
     it "visiting", (done) ->
-      Sync ->
+      sync ->
         status = page.open "http://127.0.0.1:#{server.address().port}/"
         status.should.be.ok
         done()
 
     it "title is correct", (done) ->
-      Sync ->
+      sync ->
         title = page.evaluate -> document.title
         title.should.equal "Test page title"
         done()
-
+        
   describe "within the page", ->      
     it "can inject Javascript from a file", (done) ->
-      Sync ->
+      sync ->
         success = page.injectJs 'test/inject.js'
         success.should.be.ok
         done()
     it "evaluating DOM nodes", (done) ->
-      Sync ->
+      sync ->
         node = page.evaluate (-> document.getElementById('somediv'))
         node.tagName.should.be.equal 'DIV'
         node.id.should.be.equal 'somediv'
         done()
     it "evaluating scripts defined in the header", (done) ->
-      Sync ->
+      sync ->
         html = page.evaluate -> $('#somediv').html()               
         html = html.replace(/\s\s+/g, "")
         html.should.equal '<div class="anotherdiv">Some page content</div>'
         done()
 
     it "script taking one parameter", (done) ->
-      Sync ->
+      sync ->
         res = page.evaluate ( (p1) -> "res:#{p1}" ), 'p12345'
         res.should.equal "res:p12345"
         done()
 
     it "script taking two parameters", (done) ->
-      Sync ->
+      sync ->
         res = page.evaluate ( (p1, p2) -> "res:#{p1} #{p2}" ), 'p12345', 678
         res.should.equal "res:p12345 678"
         done()
 
     it "setting a nested property", (done) ->
-      Sync ->
+      sync ->
         oldVal = page.set 'settings.loadPlugins', true
         val = page.get 'settings.loadPlugins'
         oldVal.should.equal val
         done()
         
     it "simulating clicks on page locations", (done) ->
-      Sync ->
+      sync ->
         page.sendEvent 'click', 133, 133
         clicked = page.evaluate -> window.i_got_clicked
         clicked.should.be.ok
         done()
 
     it "registering an onConsoleMessage handler", (done) ->
-      Sync ->
+      sync ->
         msg = null
         page.set 'onConsoleMessage', (_msg) -> msg = _msg
         page.evaluate -> console.log "Hello, world!"
@@ -108,18 +110,10 @@ test = (options) ->
         done()
 
     it "rendering the page to a file", (done) ->
-      Sync ->      
+      sync ->      
         fileName = temp.path suffix: '.png'
         page.render fileName
         fs.existsSync(fileName).should.be.ok
         fs.unlink fileName
         done()
-
-describe "phantom-sync", -> \
-describe "sync", -> \
-describe "page", ->
-
-  for mode in [undefined,'sync',['mixed','args'],['mixed','fibers']]
-    describe "#{mode} mode", ->  
-      test mode:mode
 

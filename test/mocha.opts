@@ -1,5 +1,4 @@
 --compilers coffee:coffee-script
---require ./test/testing-env
 --ui bdd
 --reporter spec
 -t 20000
