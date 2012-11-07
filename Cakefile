@@ -14,7 +14,8 @@ task 'clean', 'Remove all js files', ->
   u.js.clean JS_PATHS 
   
 task 'test', 'Run tests', ->
-  u.mocha.test 'test' 
+  u.mocha.test 'test', (status) ->
+    process.exit status
 
 task 'grep:dirty', 'Lookup for debugger and console.log in code', ->
   u.grep.debug()
