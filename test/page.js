@@ -125,8 +125,7 @@
               return done();
             });
           });
-          console.log("process.env.TRAVIS_JOB_NUMBER --> ", process.env.TRAVIS_JOB_NUMBER);
-          if(!process.env.TRAVIS_JOB_NUMBER){ // for some reason, not working on travis
+          if (!process.env.TRAVIS_JOB_NUMBER) {
             it("simulating clicks on page locations", function(done) {
               return sync(function() {
                 var clicked;
