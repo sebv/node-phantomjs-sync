@@ -2,15 +2,16 @@ language: node_js
 node_js:
   - 0.10
 before_install:
-   - sudo apt-get remove -y phantomjs
-   - echo "installing PhantomJS 1.9.2"
-   - wget http://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
-   - tar -xvf phantomjs-1.9.2-linux-x86_64.tar.bz2
-   - sudo mv phantomjs-1.9.2-linux-x86_64/bin/phantomjs bin/phantomjs
-   - bin/phantomjs192 --version
-   - ls -la bin/phantomjs192
+   # - sudo apt-get remove -y phantomjs
+   # - echo "installing PhantomJS 1.9.2"
+   # - wget http://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
+   # - tar -xvf phantomjs-1.9.2-linux-x86_64.tar.bz2
+   # - sudo mv phantomjs-1.9.2-linux-x86_64/bin/phantomjs bin/phantomjs
+   # - bin/phantomjs192 --version
+   # - ls -la bin/phantomjs192
 
 #   - "sudo apt-get install -y phantomjs -V"
 script:
-  - "phantomjs -v"
+  - which phantomjs
+  - phantomjs -v
   # - "cake test"
