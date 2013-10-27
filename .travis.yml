@@ -6,7 +6,9 @@ before_install:
   - wget http://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
   - mkdir phantomjs
   - tar -xvf phantomjs-1.9.2-linux-x86_64.tar.bz2 -C phantomjs
-  - cp phantomjs/phantomjs-1.9.2-linux-x86_64/bin/phantomjs `which phantomjs`
+  - ls -ld /usr/local/phantomjs
+  - which phantomjs
+  - sudo cp phantomjs/phantomjs-1.9.2-linux-x86_64/bin/phantomjs `which phantomjs`
   - phantomjs --version
 script:
   - phantomjs --version
