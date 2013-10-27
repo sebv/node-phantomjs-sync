@@ -5,7 +5,7 @@ express = require 'express'
 describe "phantom-sync", -> \
 describe "sync", -> \
 describe "adv", ->
-  {app, server, ph, page} = []    
+  {app, server, ph, page} = []
 
   before (done) ->
     app = express()
@@ -25,16 +25,17 @@ describe "adv", ->
 
     server = app.listen()
     done()
-  
+
   after (done)->
-    ph?.exit()
-    server?.close() 
-    done()
+    sync ->
+      server?.close()
+      ph?.exitAndWait(500)
+      done()
 
   describe "phantom  instance with --load-images=no", ->
     it "opening  a page", (done) ->
       sync ->
-        ph = phantom.create '--load-images=no' 
+        ph = phantom.create '--load-images=no'
         page = ph.createPage()
         status = page.open "http://127.0.0.1:#{server.address().port}/"
         status.should.be.ok
@@ -44,7 +45,7 @@ describe "adv", ->
         s = page.get 'settings'
         s.loadImages.should.be.false
         done()
-      
+
     it "checking a test image", (done) ->
       sync ->
         img = page.evaluate -> document.getElementsByTagName('img')[0]

@@ -20,24 +20,32 @@ objectOptions =
 
 _create = (args..., done) ->
   # disassembling and rebuilding child object structure
-  # with sync version of objects 
+  # with sync version of objects
   phantom.create args..., (ph) ->
     _createPage = ph.createPage
     ph.createPage = (args..., done) ->
       _createPage args..., (page) ->
+        # changing param order in evaluate
         _evaluate = page.evaluate
-        _evaluateSync = makeSync _evaluate , 
-            mode:'sync', 
-            'sync-return': 'res'          
+        page.evaluate = (fn, args..., cb) ->
+          _evaluate.apply(page, [fn, cb, args...])
         makeSync page, objectOptions.page
         done page
+
+
+    # adding 500 ms timeout to exit, cause it does not close cleanly
+    ph.exitAndWait = (ms, done) ->
+      ph.exit()
+      setTimeout ->
+        done()
+      , ms
     makeSync ph, objectOptions.ph
     done(ph)
 
 _create = makeSync _create, objectOptions.create
 
-phantomSync = 
-  phantom:  
+phantomSync =
+  phantom:
     create: _create
   sync: sync
 
