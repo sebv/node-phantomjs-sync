@@ -7,4 +7,6 @@ node_js:
 script:
   - "uname -a"
   - "phantomjs -v"
+  - "phantomjs191 -v"
+  - "phantomjs192 -v"
   # - "cake test"
