@@ -11,5 +11,6 @@ node_js:
 #   - sudo cp phantomjs/phantomjs-1.9.2-linux-x86_64/bin/phantomjs `which phantomjs`
 #   - phantomjs --version
 script:
+  -echo ${TRAVIS_JOB_NUMBER}
   - phantomjs --version
   - "cake test"
