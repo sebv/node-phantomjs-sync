@@ -2,14 +2,13 @@ language: node_js
 node_js:
   - 0.10
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install build-essential chrpath git-core libssl-dev libfontconfig1-dev
-  - git clone git://github.com/ariya/phantomjs.git
-  - cd phantomjs
-  - git checkout 1.9.2
-  - ./build.sh
-  - which phantomjs
-  - phantomjs -v
+  - "wget http://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2",
+  - "tar -xvf phantomjs-1.9.2-linux-x86_64.tar.bz2",
+  - "sudo mv phantomjs-1.9.2-linux-x86_64/bin/phantomjs bin/phantomjs192",
+  - "bin/phantomjs192 --version",
+  - "ls -la bin/phantomjs192"
+  # - which phantomjs
+  # - phantomjs -v
 
 script:
   - echo 'finished'
