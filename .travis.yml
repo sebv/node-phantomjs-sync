@@ -5,8 +5,11 @@ before_install:
   - export ENGINE_DOWNLOAD='http://phantomjs.googlecode.com/files'
   - wget http://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
   - tar --strip-components=1 -xvf phantomjs-1.9.2-linux-x86_64.tar.bz2
+  - ls -l
   - ls -la phantomjs-1.9.2-linux-x86_64/bin/phantomjs
   - phantomjs-1.9.2-linux-x86_64/bin/phantomjs --version
+
+
 
 script:
   - echo 'finished'
