@@ -1,9 +1,10 @@
 language: node_js
 node_js:
   - 0.10
-before_script:
-  - "sudo apt-get update -y"
-  - "sudo apt-get install -y phantomjs -V"
+# before_script:
+#   - "sudo apt-get update -y"
+#   - "sudo apt-get install -y phantomjs -V"
 script:
+  - "uname -a"
   - "phantomjs -v"
-  - "cake test"
+  # - "cake test"
