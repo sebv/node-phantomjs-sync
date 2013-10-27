@@ -2,13 +2,11 @@ language: node_js
 node_js:
   - 0.10
 before_install:
-  - "wget http://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2"
-  - "tar -xvf phantomjs-1.9.2-linux-x86_64.tar.bz2"
-  - "sudo mv phantomjs-1.9.2-linux-x86_64/bin/phantomjs bin/phantomjs192"
-  - "bin/phantomjs192 --version"
-  - "ls -la bin/phantomjs192"
-  - which phantomjs
-  - phantomjs -v
+  - export ENGINE_DOWNLOAD='http://phantomjs.googlecode.com/files'
+  - wget http://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2
+  - tar --strip-components=1 -xvf phantomjs-1.9.2-linux-x86_64.tar.bz2
+  - ls -la phantomjs-1.9.2-linux-x86_64/bin/phantomjs
+  - phantomjs-1.9.2-linux-x86_64/bin/phantomjs --version
 
 script:
   - echo 'finished'
