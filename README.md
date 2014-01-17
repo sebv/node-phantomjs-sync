@@ -45,3 +45,7 @@ except for the getters/setters function which need to be called like in the foll
 page.set 'settings.loadImages', false
 page.get 'settings.loadImages'
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sebv/node-phantomjs-sync/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
