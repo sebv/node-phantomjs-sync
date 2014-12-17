@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "make-sync": "~0.2.0",
-    "phantom": "~0.5.4"
+    "phantom": "~0.7.1"
   },
   "devDependencies": {
     "coffee-script": "~1.6.3",
